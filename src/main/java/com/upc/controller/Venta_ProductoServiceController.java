@@ -1,6 +1,7 @@
 package com.upc.controller;
 
 import com.upc.exeption.Venta_ProductoNotfoundException;
+import com.upc.model.Respuesta;
 import com.upc.model.Venta_Producto;
 import com.upc.service.Venta_ProductoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+
+
+
 @RestController
 public class Venta_ProductoServiceController {
 
@@ -26,6 +30,9 @@ public class Venta_ProductoServiceController {
     public ResponseEntity<Object> createVenta_Producto(@RequestBody Venta_Producto venta_producto)
     {
         venta_producto = venta_productoService.createVenta_Producto(venta_producto);
+        //Respuesta res = new Respuesta();
+        //res.setMensaje("Venta_Producto is created successfully with CVenta_Producto = " +venta_producto.getCVenta_Producto());
+        //return ResponseEntity.ok(res);
         return new ResponseEntity<>("Venta_Producto is created successfully with CVenta_Producto = " +venta_producto.getCVenta_Producto(), HttpStatus.CREATED);
     }
 
@@ -39,7 +46,10 @@ public class Venta_ProductoServiceController {
             
             venta_producto.setCVenta_Producto(CVenta_Producto);
             venta_productoService.updateVenta_Producto(venta_producto);
+            //Respuesta res = new Respuesta();
+            //res.setMensaje("Venta_Producto is updated successsfully");
             return new ResponseEntity<>("Venta_Producto is updated successsfully", HttpStatus.OK);
+            //return ResponseEntity.ok(res);
         }
         else
         {
@@ -96,6 +106,9 @@ public class Venta_ProductoServiceController {
         if (isVenta_ProductoExist)
         {
             venta_productoService.deleteVenta_Producto(CVenta_Producto);
+            //Respuesta res = new Respuesta();
+            //res.setMensaje("Venta_Producto is deleted successsfully");
+            //return ResponseEntity.ok(res);
             return new ResponseEntity<>("Venta_Producto is deleted successsfully", HttpStatus.OK);
         }
         else

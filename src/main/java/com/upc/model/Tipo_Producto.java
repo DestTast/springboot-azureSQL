@@ -7,17 +7,17 @@ public class Tipo_Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CTipo_Producto" )
-    private Number CTipo_Producto;
+    private Integer CTipo_Producto;
 
     @Column(name = "NTipo_Producto")
     private String NTipo_Producto;
 
 
-    public Number getCTipo_Producto() {
+    public Integer getCTipo_Producto() {
         return CTipo_Producto;
     }
 
-    public void setCTipo_Producto(Number CTipo_Producto) {
+    public void setCTipo_Producto(Integer CTipo_Producto) {
         this.CTipo_Producto = CTipo_Producto;
     }
 
@@ -32,7 +32,7 @@ public class Tipo_Producto {
     @Override
     public String toString()
     {
-        return "Tipo_Producto [CTipo_Producto=" + CTipo_Producto +
+        return "Tipo_Producto[CTipo_Producto=" + CTipo_Producto +
                 ", NTipo_Producto=" + NTipo_Producto + "]";
     }
 

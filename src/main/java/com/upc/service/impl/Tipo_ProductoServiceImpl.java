@@ -26,7 +26,7 @@ public class Tipo_ProductoServiceImpl implements Tipo_ProductoService {
     }
 
     @Override
-    public Tipo_Producto getTipo_Producto(Number CTipo_Producto) {
+    public Tipo_Producto getTipo_Producto(Integer CTipo_Producto) {
         Optional<Tipo_Producto> optional = Tipo_ProductoRepository.findById(CTipo_Producto);
         Tipo_Producto Tipo_Producto = optional.get();
         return Tipo_Producto;
@@ -38,12 +38,12 @@ public class Tipo_ProductoServiceImpl implements Tipo_ProductoService {
     }
 
     @Override
-    public void deleteTipo_Producto(Number CTipo_Producto) {
+    public void deleteTipo_Producto(Integer CTipo_Producto) {
         Tipo_ProductoRepository.deleteById(CTipo_Producto);
     }
 
     @Override
-    public boolean isTipo_ProductoExist(Number CTipo_Producto) {
+    public boolean isTipo_ProductoExist(Integer CTipo_Producto) {
         return Tipo_ProductoRepository.existsById(CTipo_Producto);
     }
 }

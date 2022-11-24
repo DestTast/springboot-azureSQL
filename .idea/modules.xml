@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/springboot-azuresql2.iml" filepath="$PROJECT_DIR$/.idea/springboot-azuresql2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SpringBoot3 (1).iml" filepath="$PROJECT_DIR$/.idea/SpringBoot3 (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringBoot/springboot-azuresql2.iml" filepath="$PROJECT_DIR$/SpringBoot/springboot-azuresql2.iml" />
     </modules>
   </component>
 </project>

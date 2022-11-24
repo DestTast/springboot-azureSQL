@@ -2,6 +2,7 @@ package com.upc.controller;
 
 import java.util.List;
 
+import com.upc.model.Respuesta;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,27 +24,32 @@ import com.upc.service.ProductoService;
 @RestController
 public class ProductoServiceController {
 
-
     @Autowired
     private ProductoService productoService;
 
     @RequestMapping(value = "/productos", method = RequestMethod.POST)
-    public ResponseEntity<Object> createProducto(@RequestBody Producto producto)
+    public ResponseEntity<Respuesta> createProducto(@RequestBody Producto producto)
     {
         producto = productoService.createProducto(producto);
-        return new ResponseEntity<>("Producto is created successfully with CProducto = " +producto.getCProducto(), HttpStatus.CREATED);
+        Respuesta res = new Respuesta();
+        res.setMensaje("Producto is created successfully with CProducto = " +producto.getCProducto());
+        return ResponseEntity.ok(res);
+        //return new ResponseEntity<>("Producto is created successfully with CProducto = " +producto.getCProducto(), HttpStatus.CREATED);
     }
-
     @RequestMapping(value = "/productos/{CProducto}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateProducto(@PathVariable("CProducto") int CProducto,
+    public ResponseEntity<Respuesta> updateProducto(@PathVariable("CProducto") int CProducto,
                                                  @RequestBody Producto producto)
     {
         boolean isProductoExist = productoService.isProductoExist(CProducto);
         if (isProductoExist)
         {
+
             producto.setCProducto(CProducto);
             productoService.updateProducto(producto);
-            return new ResponseEntity<>("Producto is updated successsfully", HttpStatus.OK);
+            Respuesta res = new Respuesta();
+            res.setMensaje("Producto is updated successsfully");
+            //return new ResponseEntity<>("Producto is updated successsfully", HttpStatus.OK);
+            return ResponseEntity.ok(res);
         }
         else
         {
@@ -94,13 +100,16 @@ public class ProductoServiceController {
     }
 
     @RequestMapping(value = "/productos/{CProducto}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteProducto(@PathVariable("CProducto") int CProducto)
+    public ResponseEntity<Respuesta> deleteProducto(@PathVariable("CProducto") int CProducto)
     {
         boolean isProductoExist = productoService.isProductoExist(CProducto);
         if (isProductoExist)
         {
             productoService.deleteProducto(CProducto);
-            return new ResponseEntity<>("Producto is deleted successsfully", HttpStatus.OK);
+            Respuesta res = new Respuesta();
+            res.setMensaje("Producto is deleted successsfully");
+            return ResponseEntity.ok(res);
+            //return new ResponseEntity<>("Producto is deleted successsfully", HttpStatus.OK);
         }
         else
         {

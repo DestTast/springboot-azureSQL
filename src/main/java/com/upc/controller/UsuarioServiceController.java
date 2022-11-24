@@ -3,6 +3,7 @@ package com.upc.controller;
 import java.util.List;
 
 import com.upc.exeption.UsuarioNotfoundException;
+import com.upc.model.Respuesta;
 import com.upc.model.Usuario;
 import com.upc.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,14 +27,17 @@ public class UsuarioServiceController {
     private UsuarioService usuarioService;
 
     @RequestMapping(value = "/usuarios", method = RequestMethod.POST)
-    public ResponseEntity<Object> createUsuario(@RequestBody Usuario usuario)
+    public ResponseEntity<Respuesta> createUsuario(@RequestBody Usuario usuario)
     {
         usuario = usuarioService.createUsuario(usuario);
-        return new ResponseEntity<>("Usuario is created successfully with CUsuario = " +usuario.getCUsuario(), HttpStatus.CREATED);
+        Respuesta res = new Respuesta();
+        res.setMensaje("Usuario is created successfully with CUsuario = " +usuario.getCUsuario());
+        return ResponseEntity.ok(res);
+        //return new ResponseEntity<>("Usuario is created successfully with CUsuario = " +usuario.getCUsuario(), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/usuarios/{CUsuario}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateUsuario(@PathVariable("CUsuario") int CUsuario,
+    public ResponseEntity<Respuesta> updateUsuario(@PathVariable("CUsuario") int CUsuario,
                                                  @RequestBody Usuario usuario)
     {
         boolean isUsuarioExist = usuarioService.isUsuarioExist(CUsuario);
@@ -42,7 +46,10 @@ public class UsuarioServiceController {
 
             usuario.setCUsuario(CUsuario);
             usuarioService.updateUsuario(usuario);
-            return new ResponseEntity<>("Usuario is updated successsfully", HttpStatus.OK);
+            Respuesta res = new Respuesta();
+            res.setMensaje("Usuario is updated successsfully");
+            //return new ResponseEntity<Respuesta>(res,HttpStatus.OK);
+            return ResponseEntity.ok(res);
         }
         else
         {
@@ -93,13 +100,16 @@ public class UsuarioServiceController {
     }
 
     @RequestMapping(value = "/usuarios/{CUsuario}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteUsuario(@PathVariable("CUsuario") int CUsuario)
+    public ResponseEntity<Respuesta> deleteUsuario(@PathVariable("CUsuario") int CUsuario)
     {
         boolean isUsuarioExist = usuarioService.isUsuarioExist(CUsuario);
         if (isUsuarioExist)
         {
             usuarioService.deleteUsuario(CUsuario);
-            return new ResponseEntity<>("Usuario is deleted successsfully", HttpStatus.OK);
+            Respuesta res = new Respuesta();
+            res.setMensaje("Usuario is deleted successsfully");
+            return ResponseEntity.ok(res);
+            //return new ResponseEntity<>("Usuario is deleted successsfully", HttpStatus.OK);
         }
         else
         {

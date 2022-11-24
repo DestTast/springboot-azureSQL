@@ -3,6 +3,7 @@ package com.upc.controller;
 import java.util.List;
 
 import com.upc.exeption.VentasNotfoundException;
+import com.upc.model.Respuesta;
 import com.upc.model.Ventas;
 import com.upc.service.VentasService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,14 +30,17 @@ public class VentasServiceController {
     private VentasService ventasService;
 
     @RequestMapping(value = "/ventass", method = RequestMethod.POST)
-    public ResponseEntity<Object> createVentas(@RequestBody Ventas ventas)
+    public ResponseEntity<Respuesta> createVentas(@RequestBody Ventas ventas)
     {
         ventas = ventasService.createVentas(ventas);
-        return new ResponseEntity<>("Ventas is created successfully with CVenta = " +ventas.getCVenta(), HttpStatus.CREATED);
+        Respuesta res = new Respuesta();
+        res.setMensaje("Ventas is created successfully with CVenta = " +ventas.getCVenta());
+        return ResponseEntity.ok(res);
+        //return new ResponseEntity<>("Ventas is created successfully with CVenta = " +ventas.getCVenta(), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/ventass/{CVenta}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateVentas(@PathVariable("CVenta") int CVenta,
+    public ResponseEntity<Respuesta> updateVentas(@PathVariable("CVenta") int CVenta,
                                                  @RequestBody Ventas ventas)
     {
         boolean isVentasExist = ventasService.isVentasExist(CVenta);
@@ -45,7 +49,10 @@ public class VentasServiceController {
 
             ventas.setCVenta(CVenta);
             ventasService.updateVentas(ventas);
-            return new ResponseEntity<>("Ventas is updated successsfully", HttpStatus.OK);
+            Respuesta res = new Respuesta();
+            res.setMensaje("Ventas is updated successsfully");
+            //return new ResponseEntity<>("Ventas is updated successsfully", HttpStatus.OK);
+            return ResponseEntity.ok(res);
         }
         else
         {
@@ -96,13 +103,16 @@ public class VentasServiceController {
     }
 
     @RequestMapping(value = "/ventass/{CVenta}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteVentas(@PathVariable("CVenta") int CVenta)
+    public ResponseEntity<Respuesta> deleteVentas(@PathVariable("CVenta") int CVenta)
     {
         boolean isVentasExist = ventasService.isVentasExist(CVenta);
         if (isVentasExist)
         {
             ventasService.deleteVentas(CVenta);
-            return new ResponseEntity<>("Ventas is deleted successsfully", HttpStatus.OK);
+            Respuesta res = new Respuesta();
+            res.setMensaje("Ventas is deleted successsfully");
+            return ResponseEntity.ok(res);
+            //return new ResponseEntity<>("Ventas is deleted successsfully", HttpStatus.OK);
         }
         else
         {

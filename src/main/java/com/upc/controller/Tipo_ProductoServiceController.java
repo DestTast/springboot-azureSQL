@@ -3,6 +3,7 @@ package com.upc.controller;
 import java.util.List;
 
 import com.upc.exeption.Tipo_ProductoNotfoundException;
+import com.upc.model.Respuesta;
 import com.upc.model.Tipo_Producto;
 import com.upc.service.Tipo_ProductoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,14 +27,17 @@ public class Tipo_ProductoServiceController {
     private Tipo_ProductoService Tipo_ProductoService;
 
     @RequestMapping(value = "/Tipo_Productos", method = RequestMethod.POST)
-    public ResponseEntity<Object> createTipo_Producto(@RequestBody Tipo_Producto Tipo_Producto)
+    public ResponseEntity<Respuesta> createTipo_Producto(@RequestBody Tipo_Producto Tipo_Producto)
     {
         Tipo_Producto = Tipo_ProductoService.createTipo_Producto(Tipo_Producto);
-        return new ResponseEntity<>("Tipo_Producto is created successfully with CTipo_Producto = " +Tipo_Producto.getCTipo_Producto(), HttpStatus.CREATED);
+        Respuesta res = new Respuesta();
+        res.setMensaje("Tipo_Producto is created successfully with CTipo_Producto = " +Tipo_Producto.getCTipo_Producto());
+        return ResponseEntity.ok(res);
+        //return new ResponseEntity<>("Tipo_Producto is created successfully with CTipo_Producto = " +Tipo_Producto.getCTipo_Producto()", HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/Tipo_Productos/{CTipo_Producto}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateTipo_Producto(@PathVariable("CTipo_Producto") Number CTipo_Producto,
+    public ResponseEntity<Respuesta> updateTipo_Producto(@PathVariable("CTipo_Producto") Integer CTipo_Producto,
                                                  @RequestBody Tipo_Producto Tipo_Producto)
     {
         boolean isTipo_ProductoExist = Tipo_ProductoService.isTipo_ProductoExist(CTipo_Producto);
@@ -42,7 +46,10 @@ public class Tipo_ProductoServiceController {
 
             Tipo_Producto.setCTipo_Producto(CTipo_Producto);
             Tipo_ProductoService.updateTipo_Producto(Tipo_Producto);
-            return new ResponseEntity<>("Tipo_Producto is updated successsfully", HttpStatus.OK);
+            Respuesta res = new Respuesta();
+            res.setMensaje("Tipo_Producto is updated successsfully");
+            return ResponseEntity.ok(res);
+            //return new ResponseEntity<>("Tipo_Producto is updated successsfully", HttpStatus.OK);
         }
         else
         {
@@ -52,7 +59,7 @@ public class Tipo_ProductoServiceController {
     }
 
     @RequestMapping(value = "/Tipo_Productos/{CTipo_Producto}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getTipo_Producto(@PathVariable("CTipo_Producto") Number CTipo_Producto)
+    public ResponseEntity<Object> getTipo_Producto(@PathVariable("CTipo_Producto") Integer CTipo_Producto)
     {
         boolean isTipo_ProductoExist = Tipo_ProductoService.isTipo_ProductoExist(CTipo_Producto);
         if (isTipo_ProductoExist)
@@ -93,13 +100,16 @@ public class Tipo_ProductoServiceController {
     }
 
     @RequestMapping(value = "/Tipo_Productos/{CTipo_Producto}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteTipo_Producto(@PathVariable("CTipo_Producto") Number CTipo_Producto)
+    public ResponseEntity<Respuesta> deleteTipo_Producto(@PathVariable("CTipo_Producto") Integer CTipo_Producto)
     {
         boolean isTipo_ProductoExist = Tipo_ProductoService.isTipo_ProductoExist(CTipo_Producto);
         if (isTipo_ProductoExist)
         {
             Tipo_ProductoService.deleteTipo_Producto(CTipo_Producto);
-            return new ResponseEntity<>("Tipo_Producto is deleted successsfully", HttpStatus.OK);
+            Respuesta res = new Respuesta();
+            res.setMensaje("Tipo_Producto is deleted successsfully");
+            return ResponseEntity.ok(res);
+            //return new ResponseEntity<>("Tipo_Producto is deleted successsfully", HttpStatus.OK);
         }
         else
         {
